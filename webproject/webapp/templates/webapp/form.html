@@ -1,0 +1,370 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+
+    <!-- logo -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+    <script src="https://kit.fontawesome.com/b5c2cc2edf.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <!--======== HOME NAV ===========-->
+    {% include 'webapp/home_nav.html' %}
+    <!--======== HOME NAV End =======-->
+    <div class="container pt-3 pb-3">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <!-- ===================================== STARTING FORM ============================================= -->
+          <div class="card bg-white shadow-lg">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h3 class="pt-3 ps-3 pe-3" style="font-family: Playfair Display, serif; font-size: 30px;">Entry form</h3>
+                    </div>
+                    <div class="col-md-8 pt-3">
+                      {% if valid == 'false' %}
+                        <span class="text-danger">Oops! Input fields can't be EMPTY or Invalid. Please Try again...</span>
+                      {% elif valid == 'using' %}
+                        <span class="text-danger">Oops! This dates are already in use. Please Try again...</span>
+                      {% elif valid == 'contact' %}
+                        <span class="text-danger">Oops! Contact is Invalid. Please Try again...</span>
+                      {% elif valid == 'email' %}
+                        <span class="text-danger">Oops! Email is Invalid. Please Try again...</span>
+                      {% elif valid == 'service_name' %}
+                        <span class="text-danger">Oops! This Service Name already exist. Please Try again...</span>
+                      {% elif valid == 'small' %}
+                        <span class="text-danger">Renewal Date can not be smaller than Activation Date. Please Try again...</span>
+                      {% elif valid == 'true' %}
+                        <span class="text-success">Data successfully inserted!</span>
+                      {% elif valid == '' %}
+                        <span class="text-danger"></span>
+                      {% else %}
+                        <span class="text-danger"></span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Username:</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <input type="text" class="form-control" placeholder="Username" name="name" id="f_name" />
+                        <span id="s_name"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-list ps-3 pe-3"></i>Service Type:</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <select class="form-select" name="service_type" id="f_service_type">
+                          <option selected disabled>-- Select Service Type --</option>
+                          <option>Domain</option>
+                          <option>Hosting</option>
+                          <option>License</option>
+                          <option>AMC</option>
+                          <option>Others</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-bell-concierge ps-3 pe-3"></i>Service Name:</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <input type="text" class="form-control" placeholder="Service Name" name="service_name" id="f_service_name" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pb-4 row">
+                    <div class="md-form md-outline input-with-post-icon datepicker col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-calendar-days ps-3 pe-3"></i>Activate Date:</label>
+                    </div>
+                    <div class="md-form md-outline input-with-post-icon datepicker col-xl-3 pe-5 pb-4">
+                      <input type="date" name="active_date" id="f_active_date" class="form-control"/>
+                    </div>
+                    <div class="md-form md-outline input-with-post-icon datepicker col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-calendar-days pe-3"></i>Renewal Date:</label>
+                    </div>
+                    <div class="md-form md-outline input-with-post-icon datepicker col-xl-3 pe-5">
+                      <input type="date" name="renewal_date" id="f_renewal_date" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user-tie ps-3 pe-3"></i>Service Owner:</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <input type="text" class="form-control" name="owner" id="f_owner" placeholder="Service Owner" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-envelope ps-3 pe-3"></i>Email Address:</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <input type="email" class="form-control" name="email" id="f_email" placeholder="Email Address" onchange="validateEmail()" />
+                        <span id="s_email"></span>
+                        <script>
+                          // Validate phone number function
+                          function validateEmail() {
+                            // Get and trim phone number input
+                            const f_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+                          
+                            const pattern = document.getElementById('f_email').value.trim()
+                          
+                            // Regex pattern for 11-digit phone number
+                          
+                            // Validate phone number and update message
+                            const isValid = pattern.test(f_email)
+                            document.getElementById('s_email').textContent = isValid ? '' : 'Please enter a valid email address.'
+                          
+                            // Return validation status
+                            return isValid
+                          }
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-address-book ps-3 pe-3"></i>Contact:</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <input type="text" class="form-control" name="contact" id="f_contact" placeholder="Contact" onchange="validatePhoneNumber()" />
+                        <span id="s_contact"></span>
+                        <script>
+                          // Validate phone number function
+                          function validatePhoneNumber() {
+                            // Get and trim phone number input
+                            const f_contact = document.getElementById('f_contact').value.trim()
+                          
+                            // Regex pattern for 11-digit phone number
+                            const pattern = /^\d{11}$/
+                          
+                            // Validate phone number and update message
+                            const isValid = pattern.test(f_contact)
+                            document.getElementById('s_contact').textContent = isValid ? '' : 'Please enter a valid 11-digit phone number.'
+                          
+                            // Return validation status
+                            return isValid
+                          }
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-bell ps-3 pe-3"></i>Reminder (Day):</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <input type="number" class="form-control" name="days" id="f_days" placeholder="In Days" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+                    <div class="col-xl-3">
+                      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user-tag ps-3 pe-3"></i>Active Status:</label>
+                    </div>
+                    <div class="col-xl-9">
+                      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                        <select class="form-select" name="status" id="f_status">
+                          <option selected>Active</option>
+                          <option>Inactive</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div> -->
+                  <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                  <div class="text-center">
+                    <!-- Insert button -->
+                    <button onclick="myFunction()" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block col-5 pb-2" data-bs-toggle="collapse" data-bs-target="#demo" id="insert" name="insert">Insert</button>
+                    <script>
+                      function myFunction() {
+                        document.getElementById('name').collapse = true
+                        document.getElementById('name').value = document.getElementById('f_name').value
+                        document.getElementById('service_name').value = document.getElementById('f_service_name').value
+                        document.getElementById('service_type').value = document.getElementById('f_service_type').value
+                        document.getElementById('active_date').value = document.getElementById('f_active_date').value
+                        document.getElementById('renewal_date').value = document.getElementById('f_renewal_date').value
+                        document.getElementById('owner').value = document.getElementById('f_owner').value
+                        document.getElementById('email').value = document.getElementById('f_email').value
+                        document.getElementById('contact').value = document.getElementById('f_contact').value
+                        document.getElementById('days').value = document.getElementById('f_days').value
+                        document.getElementById('status').value = document.getElementById('f_status').value
+                      }
+                    </script>
+                    <!-- Reset button -->
+                    <button onclick="resetFunction()" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block col-5 pb-2" name="reset">Reset</button>
+                    <script>
+                      function resetFunction() {
+                        document.getElementById('f_name').value = ''
+                        document.getElementById('f_service_name').value = ''
+                        document.getElementById('f_service_type').value = ''
+                        document.getElementById('f_active_date').value = ''
+                        document.getElementById('f_renewal_date').value = ''
+                        document.getElementById('f_owner').value = ''
+                        document.getElementById('f_email').value = ''
+                        document.getElementById('f_contact').value = ''
+                        document.getElementById('f_days').value = ''
+                      }
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===================================== END of STARTING FORM ============================================= -->
+
+          <!-- =================== EDIT DATA Collapse ========================== -->
+
+          <div id="demo" class="collapse">
+            <h1 class="p-5 text-center">Cross-Check</h1>
+            <div class="col-md-12">
+              <form method="post" action="{% url 'table:entry_form' %}">
+                {% csrf_token %}
+                <h3 class="pt-4" style="font-family: Playfair Display, serif; font-size: 30px;">Entered values</h3>
+
+                <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Username:</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4">
+                      <input type="text" class="form-control" name="name" id="name" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-list ps-3 pe-3"></i>Service Type:</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4">
+                      <select class="form-select" name="service_type" id="service_type">
+                        <option selected disabled>-- Select Service Type --</option>
+                        <option>Domain</option>
+                        <option>Hosting</option>
+                        <option>License</option>
+                        <option>AMC</option>
+                        <option>Others</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-bell-concierge ps-3 pe-3"></i>Service Name:</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4">
+                      <input type="text" class="form-control" placeholder="Service Name" name="service_name" id="service_name" />
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-4 row">
+                  <div class="md-form md-outline input-with-post-icon datepicker col-md-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-calendar-days ps-3 pe-3"></i>Activate Date:</label>
+                  </div>
+                  <div class="md-form md-outline input-with-post-icon datepicker col-md-3">
+                    <input type="date" name="active_date" id="active_date" class="form-control" />
+                  </div>
+
+                  <div class="md-form md-outline input-with-post-icon datepicker col-md-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-calendar-days ps-3 pe-3"></i>Renewal Date:</label>
+                  </div>
+                  <div class="md-form md-outline input-with-post-icon datepicker col-md-3">
+                    <input type="date" name="renewal_date" id="renewal_date" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user-tie ps-3 pe-3"></i>Service Owner:</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4">
+                      <input type="text" class="form-control" name="owner" id="owner" placeholder="Service Owner" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-envelope ps-3 pe-3"></i>Email Address:</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4">
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-address-book ps-3 pe-3"></i>Contact:</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4">
+                      <input type="text" class="form-control" name="contact" id="contact" placeholder="Contact" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-bell ps-3 pe-3"></i>Reminder (Day):</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4">
+                      <input type="text" class="form-control" name="days" id="days" placeholder="In Days" />
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-xl-3">
+                    <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user-tag ps-3 pe-3"></i>Active Status:</label>
+                  </div>
+                  <div class="col-xl-9">
+                    <div data-mdb-input-init class="form-outline pb-4 pe-4">
+                      <select class="form-select" name="status" id="status">
+                        <option selected>Active</option>
+                        <option>Inactive</option>
+                      </select>
+                    </div>
+                  </div>
+                </div> -->
+                <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                <div class="text-center">
+                  <!-- Submit button -->
+                  <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block col-12 pb-2" name="submission">Confirm Submission</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- END OF EDIT DATA Collapse -->
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <section class="intro">
+      <div class="mask d-flex align-items-center h-100">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="card shadow-2-strong" style="background-color: #f5f7fa;">
+                <div class="card-body">
+                  <div class="table-responsive">
+                      <table class="table table-borderless mb-0 text-center">
+                        <thead style="font-size:10px;">
+                          <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Service Type</th>
+                            <th scope="col">Service Name</th>
+                            <th scope="col">Activation Date</th>
+                            <th scope="col">Renewal Date</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Reminder</th>
+                          </tr>
+                          <tr>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                            <th>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </th>
+                          </tr>
+                          <tr>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                            <td>
+                              <br>
+                            </td>
+                          </tr>
+                          {% for x in userlist %}
+                            <tr>
+                              <th>{{ x.name }}</th>
+                              <th>{{ x.service_type }}</th>
+                              <th>{{ x.service_name }}</th>
+                              <th>{{ x.active_date }}</th>
+                              <th>{{ x.renewal_date }}</th>
+                              <th>{{ x.owner }}</th>
+                              <th>{{ x.email }}</th>
+                              <th>{{ x.contact }}</th>
+                              <th>{{ x.days }}</th>
+                            </tr>
+                          {% endfor %}
+                          <tr>
+                            <td scope="row">
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

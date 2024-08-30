@@ -1,0 +1,189 @@
+
+  {% block table %}
+  {% endblock %}
+  <section>
+    <div class="row">
+      <div class="col-md-8 ps-4 pb-2">
+        <form method="post" action="{% url 'table:recycle_bin' %}">
+          {% csrf_token %}
+          <div class="input-group">
+            <div class="form-outline" data-mdb-input-init style="width:85%;">
+              <input type="search" placeholder="Search" class="form-control rounded-0" id="search_value" name="search_value" />
+            </div>
+            <button type="submit" class="btn btn-primary" data-mdb-ripple-init id="search" name="search" value="true">Search<i class="fas fa-search ps-2"></i></button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-2 pb-2">
+        <form method="post" action="{% url 'table:recycle_logout' %}">
+          {% csrf_token %}
+          <button onclick="cookies()" type="submit" id="logout" name="logout" class="btn btn-outline-dark" style="width:100%;">Log-out</button>
+          <script type="text/javascript"></script>
+        </form>
+      </div>
+      <div class="col-md-2 pb-2 pe-4">
+        <button onclick="domain_table_Function()" type="submit" style="width:100%;" class="btn btn-outline-primary" id="window_button" name="window_button" value="">New Window</button>
+        <script>
+          function domain_table_Function() {
+            var myWindow = window.open('/recycle/', '', 'width=1920vh,height=1080')
+          }
+        </script>
+      </div>
+    </div>
+    <!-- ===================================== TABLE START ======================================= -->
+    <section class="intro">
+      <div class="mask d-flex align-items-center h-100">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="card shadow-2-strong" style="background-color: #f5f7fa;">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <form id="myForm" method="post" action="{% url 'table:recycle_data' %}">
+                      {% csrf_token %}
+                      <table class="table table-borderless mb-0 text-center">
+                        <thead>
+                          <tr>
+                            <th scope="col">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="all_check" name="all_check" value="true" />
+                              </div>
+                            </th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Service Type</th>
+                            <th scope="col">Service Name</th>
+                            <th scope="col">Activation Date</th>
+                            <th scope="col">Renewal Date</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Reminder</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Restore</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td scope="row">
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                          </tr>
+                          {% for x in deleted_data %}
+                            <tr>
+                              <th scope="row">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="check" name="check[]" value="{{ x.id }}" />
+                                </div>
+                              </th>
+                              <td>{{ x.name }}</td>
+                              <td>{{ x.service_type }}</td>
+                              <td>{{ x.service_name }}</td>
+                              <td>{{ x.active_date }}</td>
+                              <td>{{ x.renewal_date }}</td>
+                              <td>{{ x.owner }}</td>
+                              <td>{{ x.email }}</td>
+                              <td>{{ x.contact }}</td>
+                              <td>{{ x.days }}</td>
+                              <td>{{ x.status }}</td>
+                              <td>
+                                <input type="hidden" id="service_type" name="service_type" value="{{ x.service_type }}" />
+                                <button class="btn btn-success" name="restore_id" id="restore_id" value="{{ x.id }}">
+                                  <i class="fa-solid fa-trash-can-arrow-up"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          {% endfor %}
+                          <tr>
+                            <td scope="row">
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                            <td>
+                              <hr class="mt-0 d-inline-block mx-auto" style="width: 100%; background-color: #7c4dff; height: 2px" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="text-center pt-3">
+                        <button type="submit" class="btn btn-danger col-2" name="delete" id="delete" value="true">
+                          Delete
+                          <i class="fa-solid fa-trash ps-1"></i>
+                        </button>
+                        <button type="submit" class="btn btn-success col-2" name="restore" id="restore" value="true">
+                          Restore
+                          <i class="fa-solid fa-trash-can-arrow-up ps-1"></i>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ==================================== Table END ========================================== -->
+  </section>

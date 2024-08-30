@@ -1,0 +1,274 @@
+<!-- =================================== Nav ================================== -->
+<section class="pt-2">
+  <form method="post" action="{% url 'table:table' %}">
+    {% csrf_token %}
+  <!-- ============================= Service Type Dropdown ==================================== -->
+  <input class="form-control text-center bg-info" type="text" value="Service Type" style="width:100%; color:white;" readonly />
+  <div data-mdb-input-init class="form-outline pt-2">
+    <select class="form-select shadow" name="service_type" id="service_type" style="width:100%;">
+      <option>Domain</option>
+      <option>Hosting</option>
+      <option>License</option>
+      <option>AMC</option>
+      <option>Others</option>
+      <option>All</option>
+    </select>
+  </div>
+  <!-- ============================= Service Type Dropdown ==================================== -->
+  <!-- ============================= DATE ==================================== -->
+  <div id="date" class="pt-4">
+    <div class="pb-2">
+      <input class="form-control text-center bg-info" type="text" value="Service Type" style="width:100%; color:white;" readonly />
+    </div>
+    <section class="card shadow">
+      <div class="card-body bg-light">
+        <!-- ======================= JS for checkbox =========================================== -->
+        <script>
+          function domain_After_disableFunction() {
+            // =========== For AFTER ============================>
+            if (document.getElementById('domain_After').checked == true) {
+              document.getElementById('domain_Before').disabled = true
+              document.getElementById('domain_Between').disabled = true
+              document.getElementById('domain_renewal_date').disabled = true
+              document.getElementById('domain_btn').value = 'AFTER'
+            } else if (document.getElementById('domain_After').checked == false) {
+              document.getElementById('domain_Before').disabled = false
+              document.getElementById('domain_Between').disabled = false
+              document.getElementById('domain_renewal_date').disabled = false
+            }
+          }
+          function domain_Before_disableFunction() {
+            // =========== For BEFORE ============================>
+            if (document.getElementById('domain_Before').checked == true) {
+              document.getElementById('domain_After').disabled = true
+              document.getElementById('domain_Between').disabled = true
+              document.getElementById('domain_renewal_date').disabled = true
+              document.getElementById('domain_btn').value = 'BEFORE'
+            } else if (document.getElementById('domain_Before').checked == false) {
+              document.getElementById('domain_After').disabled = false
+              document.getElementById('domain_Between').disabled = false
+              document.getElementById('domain_renewal_date').disabled = false
+            }
+          }
+          function domain_Between_disableFunction() {
+            // =========== For Between ============================>
+            if (document.getElementById('domain_Between').checked == true) {
+              document.getElementById('domain_Before').disabled = true
+              document.getElementById('domain_After').disabled = true
+              document.getElementById('domain_btn').value = 'BETWEEN'
+            } else if (document.getElementById('domain_Between').checked == false) {
+              document.getElementById('domain_Before').disabled = false
+              document.getElementById('domain_After').disabled = false
+            }
+          }
+        </script>
+        <!-- ===================================== END JS ============================================ -->
+        <div class="form-check">
+          <input onclick="domain_After_disableFunction()" class="form-check-input" value="true" type="checkbox" id="domain_After" name="domain_After" />
+          <label class="form-check-label" for="domain_After">After</label>
+        </div>
+        <div class="form-check">
+          <input onclick="domain_Before_disableFunction()" class="form-check-input" type="checkbox" value="" id="domain_Before" name="domain_Before"/>
+          <label class="form-check-label" for="domain_Before">Before</label>
+        </div>
+        <div class="form-check">
+          <input onclick="domain_Between_disableFunction()" class="form-check-input" type="checkbox" value="" id="domain_Between" name="domain_Between"/>
+          <label class="form-check-label" for="domain_Between">Between</label>
+        </div>
+      </div>
+      <!-- ===================== Hidden INPUT =================== -->
+      <input type="hidden" id="domain_btn" name="domain_btn" value="false" />
+      <!-- ===================== Hidden INPUT =================== -->
+      <label class="ps-3 pt-3">From:</label>
+      <div class="md-form md-outline input-with-post-icon datepicker ps-3 pe-3">
+        <input type="date" name="domain_active" id="domain_active_date" class="form-control" />
+      </div>
+      <label class="ps-3 pt-3">To:</label>
+      <div class="md-form md-outline input-with-post-icon datepicker ps-3 pe-3">
+        <input type="date" name="domain_renewal" id="domain_renewal_date" class="form-control" />
+      </div>
+      <div class="text-center p-2 pt-3">
+        <button onclick="return display();" type="submit" style="width:100%;" data-mdb-button-init data-mdb-ripple-init class="btn btn-success" id="submit" name="table_submit">Submit</button>
+      </div>
+      <script>
+        // get the value from the cookie
+        var form_date = getCookie("domain_active_date");
+        // check a value has been stored
+        if (form_date !== '') {
+            // if it has update the "p" tag
+            document.getElementById("domain_active_date").value = form_date;
+        }
+
+        var to_date = getCookie("domain_renewal_date");
+        if (to_date !== '') {
+            // if it has update the "p" tag
+            document.getElementById("domain_renewal_date").value = to_date;
+        }
+
+        var btn = getCookie("domain_btn");
+        if (btn !== '') {
+          document.getElementById("domain_btn").value = btn;
+          if (btn == "AFTER") {
+            document.getElementById("domain_After").checked = true;
+          }
+          else if (btn == "BEFORE") {
+            document.getElementById("domain_Before").checked = true;
+          }
+          else if (btn == "BETWEEN") {
+            document.getElementById("domain_Between").checked = true;
+          }
+        }
+
+        var type = getCookie("service_type");
+        if (type !== '') {
+            // if it has update the "p" tag
+            document.getElementById("service_type").value = type;
+        }
+
+
+        function display() {
+            var form_date = document.getElementById("domain_active_date").value;
+            document.getElementById("domain_active_date").value = form_date;
+            var to_date = document.getElementById("domain_renewal_date").value;
+            document.getElementById("domain_renewal_date").value = to_date;
+            var btn = document.getElementById("domain_btn").value;
+            document.getElementById("domain_btn").value = btn;
+            var type = document.getElementById("service_type").value;
+            document.getElementById("service_type").value = type;
+
+            // store the input in a cookie
+            setCookie("domain_active_date", form_date, 1);
+            setCookie("domain_renewal_date", to_date, 1);
+            setCookie("domain_btn", btn, 1);
+            setCookie("service_type", type, 1);
+
+
+            // if you don't want the page to refresh after the button is pressed then
+            // have this function return false.  Also make sure you have "return" in
+            // the onclick attribute of the button
+            //return false;
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        }
+
+    </script>
+    </section>
+  </div>
+  <div class="pt-3">
+  <button onclick="clear_cookies()" type="button" id="clear_all" class="btn btn-dark" style="width:100%">Clear</button>
+    <script type="text/javascript">
+        function clear_cookies() {
+            // Array of specific cookie names to delete
+            var cookieNames = ["domain_active_date", "domain_renewal_date", "domain_btn", "domain_After", "domain_Before", "domain_Between"];
+
+            // Loop through each cookie name
+            cookieNames.forEach(function(cookieName) {
+                // Set the cookie expiration date to a past time (Thu, 01 Jan 1970 00:00:00 GMT)
+                document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+            });
+            document.getElementById("domain_active_date").value = "";
+            document.getElementById("domain_renewal_date").value = "";
+            document.getElementById("domain_btn").value = "All";
+            document.getElementById("domain_After").checked = "";
+            document.getElementById("domain_Before").checked = "";
+            document.getElementById("domain_Between").checked = "";
+        }
+    </script>
+
+    <!-- <script type="text/javascript">
+        function clear_cookies() {
+            // Get all cookies
+            var cookies = document.cookie.split(";");
+              // <==================================================================>
+             // """""""""""""""""<== FOR DELETING ALL COOKIES ==>"""""""""""""""""
+            // <=======================================================================>
+            // Iterate through each cookie and delete it
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf("=");
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+            }
+
+            // Optionally, you can also clear any specific values from your form
+            document.getElementById("domain_active_date").value = "";
+            document.getElementById("domain_renewal_date").value = "";
+            document.getElementById("domain_btn").value = "All";
+
+            document.getElementById("domain_After").checked = "";
+            document.getElementById("domain_Before").checked = "";
+            document.getElementById("domain_Between").checked = "";
+
+            document.getElementById("service_type").value = "Domain";  // Set to default value
+
+            alert("All cookies cleared!");
+        }
+    </script> -->
+    <!--<div class="pt-2">
+      <button type="submit" class="btn btn-danger btn-sm" style="width:100%" name="delete_button" id="delete_button" value="true">Delete<i class="fa-solid fa-trash ps-2"></i></button>
+    </div>-->
+    </div>
+  </form>
+    <div class="pt-2">
+      <form method="post" action="{% url 'table:pdf' %}" target="_blank">
+        {% csrf_token %}
+        <input type="hidden" id="pdf_service" name="service">
+        <input type="hidden" id="pdf_active_date" name="active_date">
+        <input type="hidden" id="pdf_renewal_date" name="renewal_date">
+        <input type="hidden" id="pdf_btn" name="btn">
+        <button onclick="pdf()" type="submit" class="btn btn-success btn-sm fw-bold" style="width:100%" name="pdf_button" id="pdf_button" value="true">
+          Download PDF<i class="fa-solid fa-file-pdf ps-2"></i>
+        </button>
+          <script>
+          function pdf() {
+            document.getElementById("pdf_service").value = document.getElementById("service_type").value;
+            document.getElementById("pdf_active_date").value = document.getElementById("domain_active_date").value;
+            document.getElementById("pdf_renewal_date").value = document.getElementById("domain_renewal_date").value;
+            document.getElementById("pdf_btn").value = document.getElementById("domain_btn").value;
+
+          }
+        </script>
+      </form>
+    </div>
+  <div class="pt-2">
+    <form method="post" action="{% url 'table:csv_file' %}">
+      {% csrf_token %}
+      <input type="hidden" id="service" name="service">
+      <input type="hidden" id="active_date" name="active_date">
+      <input type="hidden" id="renewal_date" name="renewal_date">
+      <input type="hidden" id="btn" name="btn">
+      <button onclick="csv()" type="submit" class="btn btn-success btn-sm fw-bold" style="width:100%" name="csv_button" id="csv_button" value="true">Download CSV<i class="fa-solid fa-file-csv ps-2"></i></button>
+      <script>
+        function csv() {
+          document.getElementById("service").value = document.getElementById("service_type").value
+          document.getElementById("active_date").value = document.getElementById("domain_active_date").value
+          document.getElementById("renewal_date").value = document.getElementById("domain_renewal_date").value
+          document.getElementById("btn").value = document.getElementById("domain_btn").value
+        }
+      </script>
+    </form>
+  </div>
+</section>
+
+<!-- =================================== END Nav ================================== -->
